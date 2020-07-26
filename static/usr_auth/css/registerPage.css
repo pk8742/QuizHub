@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap');
+
+    *{margin: 0;padding: 0;}
+    ::selection,::-moz-selection{background: #f1f2f6;color: #8e44ad;}
+    body{margin: 0;padding: 0;display: border-box;background: #8c7ae6;}
+
+.header{background: #ced6e0;border-bottom: 3px solid #f1f2f6;}
+    .brand{margin-right: 92px;}
+    .brand a{font-family: 'Spicy Rice', cursive;font-size: 40px;color: #f1f2f6;-webkit-text-fill-color: #9b59b6;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: #f1f2f6;}
+    .brand span{}
+    .nav-toggler{background: #8e44ad;color: #f1f2f6;border: 3px solid #000;box-shadow: none;}
+    .nav-toggler i{color: #fff;}
+    .nav-toggler:hover{background: #f1f2f6;color: #ced6e0;border: 2px solid #8e44ad;box-shadow: none;}
+    .nav-toggler:hover i{color: #8e44ad;}
+    .drpdwn{height: auto;width: 200px;border: 2px solid #f1f2f6;text-align: left;background: #9b59b6;color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
+    .drpdwn:hover{box-shadow: none;background: #f1f2f6;color: #565656;border: 2px solid #9b59b6;}
+    .drpdwn-menu{height: auto;width: 200px;margin-top: 10px;background: #8c7ae6;z-index: 2;}
+    .drpdwn-menu  a{color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
+    .drpdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #8c7ae6;top: -112px;left: 13px;transform: rotate(45deg);position: relative;}
+    .drpdwn-menu a.active{background: #ced6e0;color: #f1f2f6;color: #565656;}
+    
+
+    .quizbox{}
+    .tab-1{display: flex;justify-content: center;align-items: ;}
+    .quizbox .Qbox{height: auto;width: auto;background: #ced6e0;margin-top: 100px;border-radius: 20px;z-index: 1;padding: 20px 10px 10px 10px;}
+    .quizbox .Qbox p{font-family: 'MuseoModerno', cursive;}
+
+    .user_auth{display: flex;justify-content: flex-end;align-content: flex-end;align-items: flex-end;align-self: right;}
+    .user_auth a{font-family: 'Spicy Rice',cursive;font-size: 20px;text-decoration: none;color: #8c7ae6;}
+    .user_auth button{height: auto;width: auto;border: 2px solid #f1f2f6;text-align: right;background: #9b59b6;color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
+    .user_auth .dropdwn-menu{height: auto;width: auto;margin-top: 10px;background: #8c7ae6;z-index: 2;left: -50px;}
+    .user_auth .dropdown-header{color: #f1f2f6;font-family: 'Lobster', cursive;font-size: 18px;border-bottom: 2px dashed #fff;}
+    .user_auth .dropdwn-menu  a{color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
+    .user_auth .dropdwn-menu  a:hover{color: #565656;font-family: 'Spicy Rice', cursive;}
+    .user_auth .dropdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #8c7ae6;top: -88px;left: 137px;transform: rotate(45deg);position: relative;z-index: 3;}
+
+
+.register{position: relative;height:auto;width: auto;top: 60px;left: ;background: #ced6e0;padding: 10px;border-radius: 15px}
+.register h1{color: #8e44ad;font-family: 'Ubuntu', sans-serif;font-size: 35px;text-align: center;margin-top: 20px;}
+.register form{outline: none;margin-top: 50px;}
+.register input[type='text'],.register input[type='email'],.register input[type='password']{position: relative;width: 305px;height: 40px;margin: 5px;font-family: 'Dosis', sans-serif;padding-left: 5px;font-size: 20px;}
+
+.register span.input-text{position: relative;top: ;left: 10px;font-family: 'Ubuntu', sans-serif;display: block;width: 180px;background: ;text-align: center;transition: .5s;color: #8e44ad;transition: .5s;}
+.register .submit{margin: 5px;width: 250px;height: 50px;line-height: 15px;background: #8e44ad;font-family: 'Ubuntu', sans-serif;font-size: 24px;color: #fff;}
+.btn-submit{background: #8e44ad;color: #ced6e0;}
+.btn-submit:hover{background: #f1f2f6;color: #8e44ad;border: 2px solid #8e44ad;}
+.register a{text-decoration: none;font-family: 'Lobster', cursive;display: block; margin-top: -18px;margin-left: 140px;}
+
+.register input:focus ~ span.input-text{font-size: 14px;background: #2ecc71;color: #fff;}
+.register input:focus{}
+.register .eye-pass{position: absolute;left: 300px;top: 40px;}
+.focus .input-text{background: ;color: #fff;border: 1px solid #fff;}
+.focus .eye-pass{position: absolute;left: 300px;top: 43px;}
+
+/* Hide the default checkbox */
+.register input[type=checkbox] {position: absolute;top: 30px;left: 90px;height: 30px;width: 30px;visibility: ;z-index: 1;opacity: 0;}
+
+/* Creating a custom checkbox
+based on demand */
+.register .checkmark {position: absolute;top: 30px;left: 90px;height: 30px;width: 30px;background-color: #fff;border-radius: 5px;}
+
+/* Specify the background color to be shown when hovering over checkbox
+.register:hover input ~ .checkmark {background-color: yellow;} */
+
+/* Specify the background color to be shown when checkbox is active */
+.register input[type=checkbox]:active ~ .checkmark {background-color: red;}
+
+/* Specify the background color to be shown when checkbox is checked */
+.register input[type=checkbox]:checked ~ .checkmark {background-color: #8e44ad;}
+
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.checkmark:after {content: "";position: absolute;display: none;}
+
+/* Display checkmark when checked */
+.register input[type=checkbox]:checked ~ .checkmark:after {display: block;}
+
+/* Styling the checkmark using webkit */
+/* Rotated the rectangle by 45 degree and  showing only two border to make it look like a tickmark */
+.register .checkmark:after {left: 8px;bottom: 5px;width: 6px;height: 12px;border: solid white;border-width: 0 4px 4px 0;-webkit-transform: rotate(45deg);-ms-transform: rotate(45deg);transform: rotate(45deg);}
+
+/* changing div.register color when checkbox is checked */
+.color .register{background: ;}
