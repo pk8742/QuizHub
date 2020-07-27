@@ -6,7 +6,7 @@
 	<title>QuizHub</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://use.fontawesome.com/0f5b686ba4.js"></script>
-	<link rel="stylesheet" href="{% static 'QuizBox/css/countryQuiz.css' %}">
+	<!-- <link rel="stylesheet" href="{% static 'QuizBox/css/countryQuiz.css' %}"> -->
 	<style type="text/css">
 		@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
@@ -19,82 +19,78 @@
 
 		*{margin: 0;padding: 0;}
 		::selection,::-moz-selection{background: #f1f2f6;color: #8e44ad;}
-		body{margin: 0;padding: 0;display: border-box;background: url('{% static "QuizBox/images/dark-denim-3.png" %}'),linear-gradient(to right,#a55eea,#8854d0,#9b59b6,#8e44ad);background-blend-mode: multiply;}
+		body{margin: 0;padding: 0;display: border-box;background: #fff;background-blend-mode: multiply;}
 
-		.header{background: #ced6e0;border-bottom: 3px solid #f1f2f6;}
+		.header{background: #24292e;border-bottom: 3px solid #f1f2f6;}
 		.brand{margin-right: 92px;}
-		.brand a{font-family: 'Spicy Rice', cursive;font-size: 40px;color: #f1f2f6;-webkit-text-fill-color: #9b59b6;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: #f1f2f6;}
+		.brand a{font-family: 'Spicy Rice', cursive;font-size: 40px;-webkit-text-fill-color: #636e72;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: #fff;}
 		.brand span{}
-		.nav-toggler{background: #8e44ad;color: #f1f2f6;border: 3px solid #000;box-shadow: none;}
-		.nav-toggler i{color: #fff;}
-		.nav-toggler:hover{background: #f1f2f6;color: #ced6e0;border: 2px solid #8e44ad;box-shadow: none;}
-		.nav-toggler:hover i{color: #8e44ad;}
-		.drpdwn{height: auto;width: 200px;border: 2px solid #f1f2f6;text-align: left;background: #9b59b6;color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
-		.drpdwn:hover{box-shadow: none;background: #f1f2f6;color: #565656;border: 2px solid #9b59b6;}
-		.drpdwn-menu{height: auto;width: 200px;margin-top: 10px;background: #8c7ae6;z-index: 2;}
-		.drpdwn-menu  a{color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
-		.drpdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #8c7ae6;top: -112px;left: 13px;transform: rotate(45deg);position: relative;}
-		.drpdwn-menu a.active{background: #ced6e0;color: #f1f2f6;color: #565656;}
-
-
-		.quizbox{}
-		.tab-1{display: flex;justify-content: center;align-items: ;}
-		.quizbox .Qbox{height: auto;width: auto;background: #ced6e0;margin-top: 100px;border-radius: 20px;z-index: 1;padding: 20px 10px 10px 10px;}
-		.quizbox .Qbox p{font-family: 'MuseoModerno', cursive;}
+		.nav-toggler{}
+		.nav-toggler i{color: #000;}
+		.nav-toggler:hover i{color: #000;}
+		.drpdwn{height: auto;width: 200px;text-align: left;font-family: 'Spicy Rice', cursive;}
+		
+		.drpdwn-menu{height: auto;width: 200px;margin-top: 10px;background: #ecf0f1;z-index: 2;border: 1px solid #000;}
+		.drpdwn-menu  a{color: #000;font-family: 'Spicy Rice', cursive;}
+		.drpdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #ecf0f1;top: -112px;left: 13px;transform: rotate(45deg);position: relative;border: 1px 0 0 1px solid #000;}
+		.drpdwn-menu a.active{background: #ced6e0;color: #fff;color: #000;}
 
 		.user_auth{display: flex;justify-content: flex-end;align-content: flex-end;align-items: flex-end;align-self: right;}
 		.user_auth a{font-family: 'Spicy Rice',cursive;font-size: 20px;}
-		.user_auth button{height: auto;width: auto;border: 2px solid #f1f2f6;text-align: right;background: #9b59b6;color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
-		.user_auth .dropdwn-menu{height: auto;width: auto;margin-top: 10px;background: #8c7ae6;z-index: 2;left: -50px;}
-		.user_auth .dropdown-header{color: #f1f2f6;font-family: 'Lobster', cursive;font-size: 18px;border-bottom: 2px dashed #fff;}
-		.user_auth .dropdwn-menu  a{color: #f1f2f6;font-family: 'Spicy Rice', cursive;}
+		.user_auth button{height: auto;width: auto;border: 2px solid #f1f2f6;text-align: right;font-family: 'Spicy Rice', cursive;}
+		.user_auth .dropdwn-menu{height: auto;width: auto;margin-top: 10px;z-index: 2;left: -50px;border: 1px solid #000;background: #ecf0f1;}
+		.user_auth .dropdown-header{color: #000;font-family: 'Lobster', cursive;font-size: 18px;border-bottom: 2px solid #000;}
+		.user_auth .dropdwn-menu  a{color: #565656;font-family: 'Spicy Rice', cursive;}
 		.user_auth .dropdwn-menu  a:hover{color: #565656;font-family: 'Spicy Rice', cursive;}
-		.user_auth .dropdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #8c7ae6;top: -88px;left: 137px;transform: rotate(45deg);position: relative;z-index: 3;}
+		.user_auth .dropdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #ecf0f1;top: -88px;left: 137px;transform: rotate(45deg);position: relative;z-index: 3;}
 
+		.tab-1{display: flex;justify-content: flex-start;align-items: ;}
+		.quizbox .Qbox{height: 100%;width: 100%;background: ;z-index: 1;padding: 20px 10px 10px 10px;}
+		.quizbox .Qbox h2{font-family: 'MuseoModerno', cursive;margin-bottom: 35px;}
 
-		.inputGroup {background-color: #fff;display: block;margin: 10px 0;position: relative;border-radius: 50px;}
-		.inputGroup .label {padding: 12px 30px;width: 100%;display: block;text-align: left;color: #3C454C;cursor: pointer;position: relative;z-index: 2;-webkit-transition: color 200ms ease-in;transition: color 200ms ease-in;overflow: hidden;border-radius: 50px;font-family: 'MuseoModerno', cursive;}
+		.inputGroup {background-color: #fff;display: block;margin: 15px 0;position: relative;}
+		.inputGroup .label {padding: 12px 30px;width: 100%;display: block;text-align: left;color: #3C454C;cursor: pointer;position: relative;z-index: 2;-webkit-transition: color 200ms ease-in;transition: color 200ms ease-in;overflow: hidden;font-family: 'MuseoModerno', cursive;font-size: 20px;border: 1px solid #000;}
 		.inputGroup .label:before {width: 10px;height: 10px;border-radius: 50%;content: '';background-color: ;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);transform: translate(-50%, -50%) scale3d(1, 1, 1);-webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);opacity: 0;z-index: -1;}
 		.inputGroup .label:after {width: 20px;height: 20px;content: '';border: 2px solid #D1D7DC;background-color: ;background-image: ;background-repeat: no-repeat;background-position: 2px 3px;border-radius: 50%;z-index: 2;position: absolute;right: 15px;top: 50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);cursor: pointer;-webkit-transition: all 200ms ease-in;transition: all 200ms ease-in;}
-		.inputGroup input:checked ~ .label {color: #fff;border-radius: 50px;}
-		.inputGroup input:checked ~ .label:before {-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);transform: translate(-50%, -50%) scale3d(56, 56, 1);opacity: 1;}
+		.inputGroup input:checked ~ .label {color: #fff;}
+		.inputGroup input:checked ~ .label:before {-webkit-transform: translate(-50%, -50%) scale3d(100, 100, 1);transform: translate(-50%, -50%) scale3d(100, 100, 1);opacity: 1;}
 
 		.inputGroup input {width: 32px;height: 32px;-webkit-box-ordinal-group: 2;order: 1;z-index: 2;position: absolute;right: 30px;top: 50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);cursor: pointer;visibility: hidden;}
-		.Qbtn{width: 90px;height: auto;border-radius: 25px;margin: 25px 0 25px 0;font-family: 'MuseoModerno', cursive;}
-		.Qbtn.next{float: right;background: #8c7ae6;color: #fff;}
-		.Qbtn.next:hover{background: #9c88ff;color: #fff;}
+		.Qbtn{margin: 25px 0 0 0;font-family: 'MuseoModerno', cursive;}
+		.Qbtn.next{float: right;}
+		
 
 
 		.inputGroup .success:before {width: 10px;height: 10px;border-radius: 50%;content: '';background-color: #2ecc71;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);transform: translate(-50%, -50%) scale3d(1, 1, 1);-webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);opacity: 0;z-index: -1;}
 		.inputGroup .success {color: #fff;}
-		.inputGroup .success:before {-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);transform: translate(-50%, -50%) scale3d(56, 56, 1);opacity: 1;}
+		.inputGroup .success:before {-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);transform: translate(-50%, -50%) scale3d(100, 100, 1);opacity: 1;}
 		.inputGroup .success:after {width: 32px;height: 32px;content: '';border: 2px solid #D1D7DC;background-color: #2ecc71;background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");background-repeat: no-repeat;background-position: 2px 3px;border-radius: 50%;z-index: 2;position: absolute;right: 30px;top: 50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);cursor: pointer;-webkit-transition: all 200ms ease-in;transition: all 200ms ease-in;}
 
 		.inputGroup .failed:before {width: 10px;height: 10px;border-radius: 50%;content: '';background-color: #e74c3c;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);transform: translate(-50%, -50%) scale3d(1, 1, 1);-webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);opacity: 0;z-index: -1;}
 		.inputGroup .failed:after {width: 32px;height: 32px;content: '';border: 2px solid #D1D7DC;background-color: #e74c3c;background-image: url('{% static "QuizBox/images/error-svgrepo-com.svg" %}');background-repeat: no-repeat;background-position: center;border-radius: 50%;z-index: 3;position: absolute;right: 30px;top: 50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);cursor: pointer;-webkit-transition: all 200ms ease-in;transition: all 200ms ease-in;}
 
-		.dashboard-div{display: flex;justify-content: center;align-items: center;background: #ced6e0;border-top: 2px solid #8e44ad;}
-		.dashboard-div .dashboard{height: auto;width: 100%;font-family: 'Spicy Rice',cursive;}
+		.dashboard-div{display: flex;justify-content: center;align-items: center;background: #fff;border-left: 2px solid #000;height: 545px;}
+		.dashboard-div .dashboard{height: auto;width: 100%;font-family: 'Ubuntu',sans-serif;}
 	</style>
 </head>
 <body>
 	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg navbar-light justify-content-between header">
+	<nav class="navbar navbar-expand-lg navbar-dark justify-content-between header">
 	  <!-- Brand -->
 	  <div class=" brand">
 	  	<h1><a class="navbar-brand" href="{% url 'index' %}" >Quiz <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
 <span>Hub</span></a></h1>
 	  </div>
-	  <button class="navbar-toggler navbar-toggler-right nav-toggler" type="button" data-toggle="collapse" data-target="#navb">
+	  <button class="navbar-toggler navbar-toggler-right nav-toggler bg-light" type="button" data-toggle="collapse" data-target="#navb">
 	    <i class="fa fa-bars" aria-hidden="true"></i>
 
 	  </button>
 
 	  <!-- Links -->
 	  <div class="collapse navbar-collapse" id="navb">
-		  <div class="navbar col-lg-6 col-md-12 col-sm-12 col-12  d-md-none d-lg-none">
+		  <div class="navbar col-lg-6 col-md-12 col-sm-12 col-12">
 		  	  <div class="dropdown">
-			  <button type="button" class="btn dropdown-toggle drpdwn" data-toggle="dropdown">
+			  <button type="button" class="btn bg-light dropdown-toggle drpdwn" data-toggle="dropdown">
 			    Country Quiz
 			  </button>
 			  <div class="dropdown-menu drpdwn-menu">
@@ -106,7 +102,7 @@
 		</div>
 		<div class="navbar col-lg-6 col-md-12 col-sm-12 col-12 user_auth">
 		  	<div class="dropdown">
-			  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+			  <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
 			    {{username}}
 			  </button>
 			  <div class="dropdown-menu dropdwn-menu">
@@ -143,11 +139,11 @@
 				</div><!-- end of dashboard -->
 			</div>
 
-			<div class="col-lg-6 col-md-12 col-sm-12 col-12 tab-1">
+			<div class="col-lg-8 col-md-12 col-sm-12 col-12 tab-1">
 				<div class="Qbox">
 					<form action = "{% url 'nextCountryQuiz' quiz.id %}" method="post">
 						{% csrf_token %}
-						<p>Q.<span name="id">{{quiz.id}}</span>: &nbsp;{{quiz.question}}</p>
+						<h2>Q.<span name="id">{{quiz.id}}</span>: &nbsp;{{quiz.question}}</h2>
 						<div class="inputGroup">
 						    <input id="a" name="rbtn" type="radio" onclick="checkTheQuiz()" value="a"/>
 						    <label for="a" class="label" id="label-a">{{quiz.a}}</label>
@@ -166,12 +162,12 @@
 						  </div>
 
 
-						  <button class="btn Qbtn next" name="next" type="submit">Next</button>
+						  <button class="btn btn-dark btn-lg Qbtn next" name="next" type="submit">Next</button>
 					</form>
 				</div><!-- end of Qbox -->
 			</div><!-- end of tab-1 -->
 
-			<div class="col-lg-6 col-md-12 col-sm-12 col-12 tab-2 dashboard-div d-none d-lg-block">
+			<div class="col-lg-4 col-md-12 col-sm-12 col-12 tab-2 dashboard-div d-none d-lg-block">
 				<div class="dashboard">
 					<div class="row">
 						<div class="col-lg-12">
@@ -224,7 +220,13 @@ function checkTheQuiz(){
 		}
 	}
 
-
+	/* for(let i=0;i<radois.length;i++){
+		let ans = radios[i].getAttribute("id");
+		if(ans == answer){
+			continue;
+		}
+		radios[i].disabled = true;
+	} */
 }
 
 </script>

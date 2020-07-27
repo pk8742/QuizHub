@@ -7,9 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://use.fontawesome.com/0f5b686ba4.js"></script>
 	<link rel="stylesheet" href="{% static 'QuizBox/css/index.css' %}">
-	<style type="text/css">
-		body{margin: 0;padding: 0;display: border-box;background: url("{% static 'QuizBox/images/dark-denim-3.png' %}") #8e44ad;background-blend-mode: multiply;}
-	</style>
+	
 </head>
 <body>
 	<!-- Navbar -->
@@ -28,7 +26,7 @@
     <div class="collapse navbar-collapse" id="navb">
       <div class="navbar col-lg-6 col-md-12 col-sm-12 col-12">
           <div class="dropdown">
-        <button type="button" class="btn dropdown-toggle drpdwn" data-toggle="dropdown">
+        <button type="button" class="btn btn-light dropdown-toggle drpdwn" data-toggle="dropdown">
           Choose Quiz
         </button>
         <div class="dropdown-menu drpdwn-menu">
@@ -50,7 +48,7 @@
     	</ul>
 		{% else %}
 			<div class="dropdown">
-			  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+			  <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
 			    {{username}}
 			  </button>
 			  <div class="dropdown-menu dropdwn-menu">
@@ -69,13 +67,9 @@
 <div class="container-fluid quizbox">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-12 col-12 tab-1">
-
+			<div class="col-lg-12 col-md-12 col-sm-12 col-12 tab-1">
+				<p>QuizHub is written in python with using Django framework. It contains quizes based on countries, maths, science.</p>
 			</div><!-- end of tab-1 -->
-
-			<div class="col-lg-6 col-md-6 col-sm-12 col-12 tab-2">
-
-			</div><!-- end of tab-2 -->
 		</div><!-- end of row -->
 	</div><!-- end of container -->
 </div><!-- end of container-fluid -->

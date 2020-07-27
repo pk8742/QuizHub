@@ -21,7 +21,7 @@
       <h1><a class="navbar-brand" href="{% url 'index' %}" >Quiz <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
 <span>Hub</span></a></h1>
     </div>
-    <button class="navbar-toggler navbar-toggler-right nav-toggler" type="button" data-toggle="collapse" data-target="#navb">
+    <button class="navbar-toggler navbar-toggler-right nav-toggler bg-light" type="button" data-toggle="collapse" data-target="#navb">
       <i class="fa fa-bars" aria-hidden="true"></i>
 
     </button>
@@ -30,7 +30,7 @@
     <div class="collapse navbar-collapse" id="navb">
       <div class="navbar col-lg-6 col-md-12 col-sm-12 col-12">
           <div class="dropdown">
-        <button type="button" class="btn dropdown-toggle drpdwn" data-toggle="dropdown">
+        <button type="button" class="btn bg-light dropdown-toggle drpdwn" data-toggle="dropdown">
           Country Quiz
         </button>
         <div class="dropdown-menu drpdwn-menu">
@@ -56,9 +56,9 @@
 <br>
 
 <div class="container">
-  <div class="register">
+  <div class="register bg-dark">
          <h1>LogIn to  Account</h1>
-         <p style="color: green;">{{msg}}</p>
+         <p style="color: #27ae60;">{{msg}}</p>
         <form action="{% url 'login' %}" method="post">
           {% csrf_token %}
         <div class="row">
@@ -80,7 +80,7 @@
               </div>
             </div><!-- end of row -->
             <br><br>
-            <input type="submit" class="btn btn-submit btn-lg" name="submit" value="Log In" style="margin-left: 8px;">
+            <input type="submit" class="btn btn-submit btn-lg btn-light" name="submit" value="Log In" style="margin-left: 8px;">
           </form>
           </div>
 

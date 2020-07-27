@@ -28,11 +28,23 @@ def countryQuiz(request,quiz_id):
     except Countries.DoesNotExist:
         data = None
     quiz_type = "countryQuiz"
-    dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
-    total = Countries.objects.count()
-    correct = dashboard.user_correct
-    wrong = dashboard.user_wrong
-    percentage = dashboard.percentage
+
+    if quiz_id == 1:
+        Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type).delete()
+        Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).delete()
+
+    if not quiz_id == 1:
+        dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
+        total = Countries.objects.count()
+        correct = dashboard.user_correct
+        wrong = dashboard.user_wrong
+        percentage = dashboard.percentage
+    else:
+        total = Countries.objects.count()
+        correct = 0
+        wrong = 0
+        percentage = 0
+
     context = {
         "username": username,
         "quiz": data,
@@ -53,13 +65,19 @@ def nextCountryQuiz(request,quiz_id):
     q_no = quiz_id
     dateTime = datetime.now()
 
-    quiz_result_table = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no-1).last()
-    quiz_dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
-    if quiz_result_table and quiz_dashboard:
-        usr_correct = quiz_result_table.usr_correct
-        usr_wrong = quiz_result_table.usr_wrong
-        user_correct = quiz_dashboard.user_correct
-        user_wrong = quiz_dashboard.user_wrong
+    if not quiz_id == 1:
+        quiz_result_table = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no-1).last()
+        quiz_dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
+        if quiz_result_table and quiz_dashboard:
+            usr_correct = quiz_result_table.usr_correct
+            usr_wrong = quiz_result_table.usr_wrong
+            user_correct = quiz_dashboard.user_correct
+            user_wrong = quiz_dashboard.user_wrong
+        else:
+            usr_correct = 0
+            usr_wrong = 0
+            user_correct = 0
+            user_wrong = 0
     else:
         usr_correct = 0
         usr_wrong = 0
@@ -79,8 +97,13 @@ def nextCountryQuiz(request,quiz_id):
             # adding new entry to Quiz_result_table table
             quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime)
             quiz_result_table_data.save()
-            # updating Quiz_dashboard table entries
-            Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+            if not quiz_id == 1:
+                # updating Quiz_dashboard table entries
+                Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+            else:
+                # inserting first user data in Quiz_dashboard table
+                quiz_dashboard_data = Quiz_dashboard(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+                quiz_dashboard_data.save()
 
         else:
             new_usr_correct = usr_correct
@@ -92,9 +115,13 @@ def nextCountryQuiz(request,quiz_id):
             # adding new entry to Quiz_result_table table
             quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime)
             quiz_result_table_data.save()
-            # updating Quiz_dashboard table entries
-            Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
-
+            if not quiz_id == 1:
+                # updating Quiz_dashboard table entries
+                Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+            else:
+                # inserting first user data in Quiz_dashboard table
+                quiz_dashboard_data = Quiz_dashboard(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+                quiz_dashboard_data.save()
 
     new_quiz_id = quiz_id + 1
     return redirect('countryQuiz',quiz_id=new_quiz_id)
