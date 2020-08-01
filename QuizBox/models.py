@@ -16,6 +16,7 @@ class Quiz_result_table(models.Model):
     username = models.CharField(max_length=64)
     quiz_type = models.CharField(max_length=64)
     q_no = models.IntegerField()
+    selected_value = models.CharField(max_length=64,default='default',blank='true')
     result = models.CharField(max_length=64)
     usr_correct = models.IntegerField()
     usr_wrong = models.IntegerField()

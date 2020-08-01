@@ -29,22 +29,36 @@ def countryQuiz(request,quiz_id):
         data = None
     quiz_type = "countryQuiz"
 
-    if quiz_id == 1:
-        Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type).delete()
-        Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).delete()
+    list = []
+    for i in range(1,length+1):
+        i_data = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=i).last()
+        if i_data:
+            i_result = i_data.result
+            i_selected_value = i_data.selected_value
+        else:
+            i_result = None
+            i_selected_value = None
+        list.append([i,i_result,i_selected_value])
 
-    if not quiz_id == 1:
-        dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
+    dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
+    if not dashboard == None:
         total = Countries.objects.count()
         correct = dashboard.user_correct
         wrong = dashboard.user_wrong
+        left = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,result="left").count()
         percentage = dashboard.percentage
     else:
         total = Countries.objects.count()
         correct = 0
         wrong = 0
+        left = 0
         percentage = 0
 
+    quiz_result = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=quiz_id).last()
+    if quiz_result:
+        quiz_selected_value = quiz_result.selected_value
+    else:
+        quiz_selected_value = "None"
     context = {
         "username": username,
         "quiz": data,
@@ -52,7 +66,10 @@ def countryQuiz(request,quiz_id):
         "total": total,
         "correct": correct,
         "wrong": wrong,
-        "percentage": percentage
+        "left": left,
+        "percentage": percentage,
+        "list": list,
+        "quiz_selected_value": quiz_selected_value,
     }
     return render(request,"QuizBox/countryQuiz.html",context)
 
@@ -93,9 +110,10 @@ def nextCountryQuiz(request,quiz_id):
             result = "correct"
             new_user_correct = user_correct + 1
             new_user_wrong = user_wrong
-            percentage = new_user_correct/all_question * 100
+            percentage = new_user_correct/quiz_id * 100
+            selected_value = rbtn
             # adding new entry to Quiz_result_table table
-            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime)
+            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
             quiz_result_table_data.save()
             if not quiz_id == 1:
                 # updating Quiz_dashboard table entries
@@ -105,15 +123,34 @@ def nextCountryQuiz(request,quiz_id):
                 quiz_dashboard_data = Quiz_dashboard(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
                 quiz_dashboard_data.save()
 
+        elif rbtn == None:
+            new_usr_correct = usr_correct
+            new_usr_wrong = usr_wrong
+            result = "left"
+            new_user_correct = user_correct
+            new_user_wrong = user_wrong
+            percentage = new_user_correct/quiz_id * 100
+            selected_value = "none"
+            # adding new entry to Quiz_result_table table
+            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+            quiz_result_table_data.save()
+            if not quiz_id == 1:
+                # updating Quiz_dashboard table entries
+                Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+            else:
+                # inserting first user data in Quiz_dashboard table
+                quiz_dashboard_data = Quiz_dashboard(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
+                quiz_dashboard_data.save()
         else:
             new_usr_correct = usr_correct
             new_usr_wrong = usr_wrong + 1
             result = "wrong"
             new_user_correct = user_correct
             new_user_wrong = user_wrong + 1
-            percentage = new_user_correct/all_question * 100
+            percentage = new_user_correct/quiz_id * 100
+            selected_value = rbtn
             # adding new entry to Quiz_result_table table
-            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime)
+            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
             quiz_result_table_data.save()
             if not quiz_id == 1:
                 # updating Quiz_dashboard table entries
@@ -123,5 +160,20 @@ def nextCountryQuiz(request,quiz_id):
                 quiz_dashboard_data = Quiz_dashboard(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
                 quiz_dashboard_data.save()
 
-    new_quiz_id = quiz_id + 1
-    return redirect('countryQuiz',quiz_id=new_quiz_id)
+    return redirect('next',quiz_type="countryQuiz",quiz_id=quiz_id)
+
+def Reattempt(request,quiz_type):
+    username = request.session["username"]
+
+    Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type).delete()
+    Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).delete()
+
+    return redirect(quiz_type,1)
+
+def previous(request,quiz_type,quiz_id):
+    prev_quiz_id = quiz_id - 1
+    return redirect(quiz_type,quiz_id=prev_quiz_id)
+
+def next(request,quiz_type,quiz_id):
+    nxt_quiz_id = quiz_id + 1
+    return redirect(quiz_type,quiz_id=nxt_quiz_id)

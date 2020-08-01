@@ -58,71 +58,85 @@
 	<!-- quizbox -->
 
 <div class="container-fluid quizbox">
-
-		<div class="row">
-			<div class="col-12 col-sm-12 dashboard-div d-block d-lg-none">
-				<div class="dashboard">
-					<div class="row">
-						<div class="col-12" style="text-align: center;">
-							<h1>Total Questions : {{total}}</h1>
-						</div>
-						<div class="col-6">
-							<h1>Correct : {{correct}}</h1>
-						</div>
-						<div class="col-6">
-							<h1>Wrong : {{wrong}}</h1>
-						</div>
-						<div class="col-12" style="text-align: center;">
-							<h1>Accuracy : {{percentage}} %</h1>
-						</div>
-					</div>
-				</div><!-- end of dashboard -->
-			</div>
-
+	<div class="row">
 			<div class="col-lg-8 col-md-12 col-sm-12 col-12 tab-1">
+				<div class="dashboard bg-dark">
+					<div class="row" style="margin: 0px;">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-6 dashboard-column">
+							<p>Questions: &nbsp;&nbsp;&nbsp;&nbsp;{{total}}</p>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-6 col-6 dashboard-column">
+							<p>Correct: &nbsp;&nbsp;&nbsp;&nbsp;{{correct}}</p>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-6 col-6 dashboard-column">
+							<p>Wrong: &nbsp;&nbsp;&nbsp;&nbsp;{{wrong}}</p>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-6 col-6 dashboard-column">
+							<p>Left: &nbsp;&nbsp;&nbsp;&nbsp;{{left}}</p>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-6 col-6 dashboard-column">
+							<p>Accuracy: &nbsp;&nbsp;&nbsp;&nbsp;{{percentage}} %</p>
+						</div>
+				</div><!-- end of row -->
+				</div><!-- end of dashboard -->
+
 				<div class="Qbox">
 					<form action = "{% url 'nextCountryQuiz' quiz.id %}" method="post">
 						{% csrf_token %}
+						<div id="form-div">
 						<h2>Q.<span name="id">{{quiz.id}}</span>: &nbsp;{{quiz.question}}</h2>
 						<div class="inputGroup">
 						    <input id="a" name="rbtn" type="radio" onclick="checkTheQuiz()" value="a"/>
-						    <label for="a" class="label" id="label-a">{{quiz.a}}</label>
+						    <label for="a" class="label" id="label-a" name="label"><span>A</span>{{quiz.a}}</label>
 						  </div>
 						  <div class="inputGroup">
 						    <input id="b" name="rbtn" type="radio" onclick="checkTheQuiz()" value="b"/>
-						    <label for="b" class="label" id="label-b">{{quiz.b}}</label>
+						    <label for="b" class="label" id="label-b" name="label"><span>B</span>{{quiz.b}}</label>
 						  </div>
 						  <div class="inputGroup">
 						    <input id="c" name="rbtn" type="radio" onclick="checkTheQuiz()" value="c"/>
-						    <label for="c" class="label" id="label-c">{{quiz.c}}</label>
+						    <label for="c" class="label" id="label-c" name="label"><span>C</span>{{quiz.c}}</label>
 						  </div>
 						  <div class="inputGroup">
 						    <input id="d" name="rbtn" type="radio" onclick="checkTheQuiz()" value="d"/>
-						    <label for="d" class="label" id="label-d">{{quiz.d}}</label>
+						    <label for="d" class="label" id="label-d" name="label"><span>D</span>{{quiz.d}}</label>
 						  </div>
+						  </div><!-- end of form-div -->
+							{% if quiz.id != 1 %}
+							<a class="btn btn-dark btn-lg previous" href="javascript:void(0)" onclick="location.href='{% url 'previous' 'countryQuiz' quiz.id %}'">Previous</a>
+							{% endif %}
+						  <a class="btn btn-dark btn-lg rattempt" href="javascript:void(0)" onclick="location.href='{% url 'Reattempt' 'countryQuiz' %}'">Re-attempt</a>
 
-
+						  {% if quiz.id < total %}
 						  <button class="btn btn-dark btn-lg Qbtn next" name="next" type="submit">Next</button>
+							{% elif quiz_selected_value == "None" or quiz_selected_value == "none" %}
+							<a class="btn btn-dark btn-lg Qbtn next" href="javascript:void(0)" onclick="location.href='{% url 'next' 'countryQuiz' quiz.id %}'">Next</a>
+						  {% else %}
+						  <button class="btn btn-dark btn-lg Qbtn next" name="next" type="submit">Complete Quiz</button>
+						  {% endif %}
 					</form>
-				</div><!-- end of Qbox -->
+					</div><!-- end of Qbox -->
+
 			</div><!-- end of tab-1 -->
 
 			<div class="col-lg-4 col-md-12 col-sm-12 col-12 tab-2 dashboard-div d-none d-lg-block">
-				<div class="dashboard">
-					<div class="row">
-						<div class="col-lg-12">
-							<h1>Total Questions : {{total}}</h1>
-						</div>
-						<div class="col-lg-12">
-							<h1>Correct Answers : {{correct}}</h1>
-						</div>
-						<div class="col-lg-12">
-							<h1>Wrong Answers : {{wrong}}</h1>
-						</div>
-						<div class="col-lg-12">
-							<h1>Accuracy : {{percentage}} %</h1>
-						</div>
+				<div class="review">
+					<div class="heading">
+						<h2>QUESTION ANALYSIS</h2>
 					</div>
+
+					<div class="row Qblock">
+
+						{% for i in list %}
+							<!-- accessing 2d array -->
+						<a  href ="javascript:void(0)" onclick="location.href='{% url 'countryQuiz' i.0 %}'" name="qbtn" value="{{i.0}}">
+							<div class="col-lg-2">
+								<div class="question-board" id="quiz_board-{{i.0}}" value="{{i.1}}" name="quiz_analysis">{{i.0}}</div>
+							</div>
+						</a>
+						{% endfor %}
+
+					</div><!-- end of row -->
 				</div><!-- end of dashboard -->
 			</div><!-- end of tab-2 -->
 		</div><!-- end of row -->
@@ -131,6 +145,53 @@
 
 	<!-- end of quizbox -->
 <script type="text/javascript">
+// script to change the state of labels
+var quiz_selected_value = "{{quiz_selected_value}}";
+var quiz_answer = "{{quiz.answer}}";
+if(quiz_selected_value != "none" && quiz_answer != "none" && quiz_selected_value != "None" && quiz_answer != "None"){ // this condition surpass the situation when result = left
+	var answer_elem = document.getElementById("label-"+quiz_answer);
+	var selected_elem = document.getElementById("label-"+quiz_selected_value);
+	if(quiz_selected_value == quiz_answer){
+		answer_elem.classList.add("success");
+		document.getElementById("form-div").style.pointerEvents = "none"; // to disable clicking radios after one click
+	}
+	else{
+		answer_elem.classList.add("success");
+		selected_elem.classList.add("failed");
+		document.getElementById("form-div").style.pointerEvents = "none"; // to disable clicking radios after one click
+	}
+}
+else{
+	console.log("variable are None: <br>quiz_selected_value= "+quiz_selected_value+"<br> quiz_answer = "+quiz_answer);
+	
+}
+
+// script to change the color of quiz analysis divs
+var quiz_board = document.getElementsByName("quiz_analysis");
+for(let i=0;i<={{total}}+1;i++){
+	var value = quiz_board[i].getAttribute("value");
+	if(value == "correct"){
+		quiz_board[i].classList.add("bg-success");
+		quiz_board[i].style.color = "#fff";
+		quiz_board[i].style.border = "none";
+	}
+	if(value == "wrong"){
+		quiz_board[i].classList.add("bg-danger");
+		quiz_board[i].style.color = "#fff";
+		quiz_board[i].style.border = "none";
+	}
+	if(value == "left"){
+		quiz_board[i].classList.add("bg-warning");
+		quiz_board[i].style.color = "#fff";
+		quiz_board[i].style.border = "none";
+	}
+	if(value == "None"){
+
+	}
+}
+
+
+
 
 function checkTheQuiz(){
 	var answer = "{{quiz.answer}}";
@@ -167,6 +228,7 @@ function checkTheQuiz(){
 		}
 		radios[i].disabled = true;
 	} */
+	document.getElementById("form-div").style.pointerEvents = "none"; // to disable clicking radios after one click
 }
 
 </script>
