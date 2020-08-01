@@ -108,10 +108,9 @@
 						  <a class="btn btn-dark btn-lg rattempt" href="javascript:void(0)" onclick="location.href='{% url 'Reattempt' 'countryQuiz' %}'">Re-attempt</a>
 
 						  {% if quiz.id < total %}
-						  <button class="btn btn-dark btn-lg Qbtn next" name="next" type="submit">Next</button>
-							{% elif quiz_selected_value == "None" or quiz_selected_value == "none" %}
-							<a class="btn btn-dark btn-lg Qbtn next" href="javascript:void(0)" onclick="location.href='{% url 'next' 'countryQuiz' quiz.id %}'">Next</a>
-						  {% else %}
+						  <a class="btn btn-dark btn-lg Qbtn next" id="next-btn" href="javascript:void(0)" onclick="location.href='{% url 'next' 'countryQuiz' quiz.id %}'" style="display: none;">Next</a>
+						  <button class="btn btn-dark btn-lg Qbtn next"  id="form-btn" name="next" type="submit">Next</button>
+							{% else %}
 						  <button class="btn btn-dark btn-lg Qbtn next" name="next" type="submit">Complete Quiz</button>
 						  {% endif %}
 					</form>
@@ -154,16 +153,20 @@ if(quiz_selected_value != "none" && quiz_answer != "none" && quiz_selected_value
 	if(quiz_selected_value == quiz_answer){
 		answer_elem.classList.add("success");
 		document.getElementById("form-div").style.pointerEvents = "none"; // to disable clicking radios after one click
+		document.getElementById("form-btn").style.display = "none";
+		document.getElementById("next-btn").style.display = "block";
 	}
 	else{
 		answer_elem.classList.add("success");
 		selected_elem.classList.add("failed");
 		document.getElementById("form-div").style.pointerEvents = "none"; // to disable clicking radios after one click
+		document.getElementById("form-btn").style.display = "none";
+		document.getElementById("next-btn").style.display = "block";
 	}
 }
 else{
 	console.log("variable are None: <br>quiz_selected_value= "+quiz_selected_value+"<br> quiz_answer = "+quiz_answer);
-	
+
 }
 
 // script to change the color of quiz analysis divs

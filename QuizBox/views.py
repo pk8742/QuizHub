@@ -59,6 +59,7 @@ def countryQuiz(request,quiz_id):
         quiz_selected_value = quiz_result.selected_value
     else:
         quiz_selected_value = "None"
+    
     context = {
         "username": username,
         "quiz": data,
