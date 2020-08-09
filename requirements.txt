@@ -1,0 +1,9 @@
+asgiref 
+Django
+pip 
+pkg-resources 
+psycopg2-binary 
+pytz 
+setuptools
+SQLAlchemy
+sqlparse  

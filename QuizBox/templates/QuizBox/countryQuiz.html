@@ -23,7 +23,6 @@
 	  </div>
 	  <button class="navbar-toggler navbar-toggler-right nav-toggler bg-light" type="button" data-toggle="collapse" data-target="#navb">
 	    <i class="fa fa-bars" aria-hidden="true"></i>
-
 	  </button>
 
 	  <!-- Links -->
@@ -31,12 +30,12 @@
 		  <div class="navbar col-lg-6 col-md-12 col-sm-12 col-12">
 		  	  <div class="dropdown">
 			  <button type="button" class="btn bg-light dropdown-toggle drpdwn" data-toggle="dropdown">
-			    Country Quiz
+			    CS Quiz
 			  </button>
 			  <div class="dropdown-menu drpdwn-menu">
-			    <a class="dropdown-item active" href="{% url 'countryQuiz' 1 %}">Country</a>
-			    <a class="dropdown-item" href="#">Link 2</a>
-			    <a class="dropdown-item" href="#">Link 3</a>
+			    <a class="dropdown-item active" href="{% url 'CS_Quiz' 1 %}">CS Quiz</a>
+			    <a class="dropdown-item" href="#">-----</a>
+			    <a class="dropdown-item" href="#">-----</a>
 			  </div>
 			</div>
 		</div>
@@ -81,7 +80,7 @@
 				</div><!-- end of dashboard -->
 
 				<div class="Qbox">
-					<form action = "{% url 'nextCountryQuiz' quiz.id %}" method="post">
+					<form action = "{% url 'nextQuiz' quiz.id %}" method="post">
 						{% csrf_token %}
 						<div id="form-div">
 						<h2>Q.<span name="id">{{quiz.id}}</span>: &nbsp;{{quiz.question}}</h2>
@@ -103,13 +102,15 @@
 						  </div>
 						  </div><!-- end of form-div -->
 							{% if quiz.id != 1 %}
-							<a class="btn btn-dark btn-lg previous" href="javascript:void(0)" onclick="location.href='{% url 'previous' 'countryQuiz' quiz.id %}'">Previous</a>
+							<a class="btn btn-dark btn-lg previous" href="javascript:void(0)" onclick="location.href='{% url 'previous' 'CS_Quiz' quiz.id %}'">Previous</a>
 							{% endif %}
-						  <a class="btn btn-dark btn-lg rattempt" href="javascript:void(0)" onclick="location.href='{% url 'Reattempt' 'countryQuiz' %}'">Re-attempt</a>
+						  <a class="btn btn-dark btn-lg rattempt" href="javascript:void(0)" onclick="location.href='{% url 'Reattempt' 'CS_Quiz' %}'">Re-attempt</a>
 
 						  {% if quiz.id < total %}
-						  <a class="btn btn-dark btn-lg Qbtn next" id="next-btn" href="javascript:void(0)" onclick="location.href='{% url 'next' 'countryQuiz' quiz.id %}'" style="display: none;">Next</a>
+						  <a class="btn btn-dark btn-lg Qbtn next" id="next-btn" href="javascript:void(0)" onclick="location.href='{% url 'next' 'CS_Quiz' quiz.id %}'" style="display: none;">Next</a>
 						  <button class="btn btn-dark btn-lg Qbtn next"  id="form-btn" name="next" type="submit">Next</button>
+
+							<a class="btn btn-dark btn-lg rattempt-sm" href="javascript:void(0)" onclick="location.href='{% url 'Reattempt' 'CS_Quiz' %}'">Re-attempt</a>
 							{% else %}
 						  <button class="btn btn-dark btn-lg Qbtn next" name="next" type="submit">Complete Quiz</button>
 						  {% endif %}
@@ -128,7 +129,7 @@
 
 						{% for i in list %}
 							<!-- accessing 2d array -->
-						<a  href ="javascript:void(0)" onclick="location.href='{% url 'countryQuiz' i.0 %}'" name="qbtn" value="{{i.0}}">
+						<a  href ="javascript:void(0)" onclick="location.href='{% url 'CS_Quiz' i.0 %}'" name="qbtn" value="{{i.0}}">
 							<div class="col-lg-2">
 								<div class="question-board" id="quiz_board-{{i.0}}" value="{{i.1}}" name="quiz_analysis">{{i.0}}</div>
 							</div>

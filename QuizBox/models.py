@@ -1,13 +1,13 @@
 from django.db import models
 
-# Create your models here.
-class Countries(models.Model):
-    question = models.CharField(max_length=64)
-    a = models.CharField(max_length=64)
-    b = models.CharField(max_length=64)
-    c = models.CharField(max_length=64)
-    d = models.CharField(max_length=64)
-    answer = models.CharField(max_length=64)
+# Create your models.
+class CS_quiz(models.Model):
+    question = models.CharField(max_length=256)
+    a = models.CharField(max_length=256)
+    b = models.CharField(max_length=256)
+    c = models.CharField(max_length=256)
+    d = models.CharField(max_length=256)
+    answer = models.CharField(max_length=256)
 
     def __str__(self):
         return f"id={self.id},question={self.question},a={self.a},b={self.b},c={self.c},d={self.d},answer={self.answer}"

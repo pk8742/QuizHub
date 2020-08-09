@@ -15,11 +15,11 @@
 		.brand{margin-right: 92px;}
 		.brand a{font-family: 'Spicy Rice', cursive;font-size: 40px;-webkit-text-fill-color: #636e72;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: #fff;}
 		.brand span{}
-		.nav-toggler{}
+		.nav-toggler{margin: 0;}
 		.nav-toggler i{color: #000;}
 		.nav-toggler:hover i{color: #000;}
 		.drpdwn{height: auto;width: 200px;text-align: left;font-family: 'Spicy Rice', cursive;}
-		
+
 		.drpdwn-menu{height: auto;width: 200px;margin-top: 10px;background: #ecf0f1;z-index: 2;border: 1px solid #000;}
 		.drpdwn-menu  a{color: #000;font-family: 'Spicy Rice', cursive;}
 		.drpdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #ecf0f1;top: -112px;left: 13px;transform: rotate(45deg);position: relative;border: 1px 0 0 1px solid #000;}
@@ -34,8 +34,11 @@
 		.user_auth .dropdwn-menu  a:hover{color: #565656;font-family: 'Spicy Rice', cursive;}
 		.user_auth .dropdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #ecf0f1;top: -88px;left: 137px;transform: rotate(45deg);position: relative;z-index: 3;}
 
-		.tab-1{display: flex;justify-content: flex-start;align-items: ;flex-direction: column;}
-		.quizbox .Qbox{height: 100%;width: 100%;background: ;z-index: 1;padding: 20px 10px 10px 10px;}
+		.tab-1{display: flex;justify-content: flex-start;align-items: ;flex-direction: column;overflow-y: auto;}
+		.quizbox .Qbox{height: 490px;width: 100%;background: ;z-index: 1;padding: 20px 10px 10px 10px;}
+		@media screen(max-height: 500px){
+			.quizbox .Qbox{height: auto;width: 100%;background: ;z-index: 1;padding: 20px 10px 10px 10px;overflow-y: auto;}
+		}
 		.quizbox .Qbox h2{font-family: 'MuseoModerno', cursive;margin-bottom: 35px;}
 
 		.inputGroup {background-color: #fff;display: block;margin: 15px 0;position: relative;}
@@ -49,10 +52,14 @@
 		.inputGroup input {width: 32px;height: 32px;-webkit-box-ordinal-group: 2;order: 1;z-index: 2;position: absolute;right: 30px;top: 50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);cursor: pointer;visibility: hidden;}
 		.Qbtn,.rattempt,.previous{margin: 25px 0 0 0;font-family: 'MuseoModerno', cursive;}
 		.previous{float: left;}
-		.rattempt{position: absolute;left: 42%;}
-
+		.rattempt{position: relative;left: 30%;}
+		.rattempt-sm{display: none;}
+		@media screen and (max-width: 476px){
+			.rattempt{display: none;}
+			.rattempt-sm{display: block;position: relative;top: 90px;}
+		}
 		.Qbtn.next{float: right;}
-		
+
 
 
 		.inputGroup .success:before {width: 10px;height: 10px;border-radius: 50%;content: '';background-color: #2ecc71;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);transform: translate(-50%, -50%) scale3d(1, 1, 1);-webkit-transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);opacity: 0;z-index: -1;}
@@ -67,10 +74,10 @@
 		.inputGroup .failed:before {-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);transform: translate(-50%, -50%) scale3d(100, 100, 1);opacity: 1;}
 		.inputGroup .failed:after {width: 32px;height: 32px;content: '';border: 2px solid #D1D7DC;background-color: #e74c3c;background-image: url('{% static "QuizBox/images/error-svgrepo-com.svg" %}');background-repeat: no-repeat;background-position: center;border-radius: 50%;z-index: 3;position: absolute;right: 30px;top: 50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);cursor: pointer;-webkit-transition: all 200ms ease-in;transition: all 200ms ease-in;}
 
-		.dashboard-div{display: flex;justify-content: center;align-items: center;background: #fff;border-left: 2px solid #000;height: 545px;}
+		.dashboard-div{display: flex;justify-content: center;align-items: center;background: #fff;border-left: 2px solid #000;height: auto;}
 		.dashboard-div .review{height: auto;width: 100%;margin-top: 20px;}
 		.dashboard-div .review .heading{height: 100px;width: 100%;border:1px solid #000;border-radius: 10px 10px 0 0;text-align: center;padding-top: 30px;}
-		.dashboard-div .review .Qblock{border: 1px solid #000;height: auto;width: 100%;margin-left: 0;padding: 20px 10px;}
+		.dashboard-div .review .Qblock{border: 1px solid #000;height: 425px;width: 100%;margin-left: 0;padding: 20px 0 20px 0;overflow-y: auto;}
 		.dashboard-div .review a{text-decoration: none;color: #000;}
 		.dashboard-div .review .question-board{height: 50px;width: 50px;border-radius: 50%;border: 1px solid #000;text-align: center;padding-top: 10px;font-size: 20px;margin-bottom: 10px;}
 

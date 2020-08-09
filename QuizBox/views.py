@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Countries,Quiz_result_table,Quiz_dashboard
+from .models import CS_quiz,Quiz_result_table,Quiz_dashboard
 from usr_auth.views import usr_auth,register_page,login_page,logout_view
 from django.db.models import Max
 from datetime import datetime
@@ -17,17 +17,17 @@ def index(request):
     }
     return render(request,"QuizBox/index.html",context)
 
-def countryQuiz(request,quiz_id):
+def CS_Quiz(request,quiz_id):
     if not request.user.is_authenticated:
         return redirect('login_page')
     username = request.session["username"]
-    length = Countries.objects.count()
+    length = CS_quiz.objects.count()
 
     try:
-        data = Countries.objects.get(pk=quiz_id)
-    except Countries.DoesNotExist:
+        data = CS_quiz.objects.get(pk=quiz_id)
+    except CS_quiz.DoesNotExist:
         data = None
-    quiz_type = "countryQuiz"
+    quiz_type = "CS_Quiz"
 
     list = []
     for i in range(1,length+1):
@@ -42,13 +42,13 @@ def countryQuiz(request,quiz_id):
 
     dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
     if not dashboard == None:
-        total = Countries.objects.count()
+        total = CS_quiz.objects.count()
         correct = dashboard.user_correct
         wrong = dashboard.user_wrong
         left = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,result="left").count()
         percentage = dashboard.percentage
     else:
-        total = Countries.objects.count()
+        total = CS_quiz.objects.count()
         correct = 0
         wrong = 0
         left = 0
@@ -59,7 +59,7 @@ def countryQuiz(request,quiz_id):
         quiz_selected_value = quiz_result.selected_value
     else:
         quiz_selected_value = "None"
-    
+
     context = {
         "username": username,
         "quiz": data,
@@ -74,12 +74,12 @@ def countryQuiz(request,quiz_id):
     }
     return render(request,"QuizBox/countryQuiz.html",context)
 
-def nextCountryQuiz(request,quiz_id):
+def nextQuiz(request,quiz_id):
     username = request.session["username"]
-    all_question = Countries.objects.count()
-    data = Countries.objects.get(pk=quiz_id)
+    all_question = CS_quiz.objects.count()
+    data = CS_quiz.objects.get(pk=quiz_id)
     answer = data.answer
-    quiz_type = "countryQuiz"
+    quiz_type = "CS_Quiz"
     q_no = quiz_id
     dateTime = datetime.now()
 
@@ -102,6 +102,10 @@ def nextCountryQuiz(request,quiz_id):
         user_correct = 0
         user_wrong = 0
 
+    # Script for the left questions reattempt
+    check_quiz_table = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no).last()
+
+
     if request.method == 'POST':
         rbtn = request.POST.get("rbtn")
 
@@ -113,9 +117,17 @@ def nextCountryQuiz(request,quiz_id):
             new_user_wrong = user_wrong
             percentage = new_user_correct/quiz_id * 100
             selected_value = rbtn
-            # adding new entry to Quiz_result_table table
-            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
-            quiz_result_table_data.save()
+            # Script for left question reattempt
+            if check_quiz_table:
+                if check_quiz_table.result == "left":
+                    Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no).delete()
+                    quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+                    quiz_result_table_data.save()
+            else:
+                # adding new entry to Quiz_result_table table
+                quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+                quiz_result_table_data.save()
+
             if not quiz_id == 1:
                 # updating Quiz_dashboard table entries
                 Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
@@ -132,9 +144,17 @@ def nextCountryQuiz(request,quiz_id):
             new_user_wrong = user_wrong
             percentage = new_user_correct/quiz_id * 100
             selected_value = "none"
-            # adding new entry to Quiz_result_table table
-            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
-            quiz_result_table_data.save()
+            # Script for left question reattempt
+            if check_quiz_table:
+                if check_quiz_table.result == "left":
+                    Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no).delete()
+                    quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+                    quiz_result_table_data.save()
+            else:
+                # adding new entry to Quiz_result_table table
+                quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+                quiz_result_table_data.save()
+
             if not quiz_id == 1:
                 # updating Quiz_dashboard table entries
                 Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
@@ -150,9 +170,17 @@ def nextCountryQuiz(request,quiz_id):
             new_user_wrong = user_wrong + 1
             percentage = new_user_correct/quiz_id * 100
             selected_value = rbtn
-            # adding new entry to Quiz_result_table table
-            quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
-            quiz_result_table_data.save()
+            # Script for left question reattempt
+            if check_quiz_table:
+                if check_quiz_table.result == "left":
+                    Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no).delete()
+                    quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+                    quiz_result_table_data.save()
+            else:
+                # adding new entry to Quiz_result_table table
+                quiz_result_table_data = Quiz_result_table(username=username,quiz_type=quiz_type,q_no=q_no,result=result,usr_correct=new_usr_correct,usr_wrong=new_usr_wrong,dateTime=dateTime,selected_value=selected_value)
+                quiz_result_table_data.save()
+
             if not quiz_id == 1:
                 # updating Quiz_dashboard table entries
                 Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).update(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
@@ -160,8 +188,10 @@ def nextCountryQuiz(request,quiz_id):
                 # inserting first user data in Quiz_dashboard table
                 quiz_dashboard_data = Quiz_dashboard(username=username,quiz_type=quiz_type,user_correct=new_user_correct,user_wrong=new_user_wrong,percentage=percentage,dateTime=dateTime)
                 quiz_dashboard_data.save()
-
-    return redirect('next',quiz_type="countryQuiz",quiz_id=quiz_id)
+    if not quiz_id < all_question:
+        return redirect('complete_quiz',quiz_type="CS_Quiz")
+    else:
+        return redirect('next',quiz_type="CS_Quiz",quiz_id=quiz_id)
 
 def Reattempt(request,quiz_type):
     username = request.session["username"]
@@ -178,3 +208,23 @@ def previous(request,quiz_type,quiz_id):
 def next(request,quiz_type,quiz_id):
     nxt_quiz_id = quiz_id + 1
     return redirect(quiz_type,quiz_id=nxt_quiz_id)
+
+def complete_quiz(request,quiz_type):
+    username = request.session["username"]
+    total = CS_quiz.objects.count()
+    attend = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type).count()
+    dashboard = Quiz_dashboard.objects.filter(username=username,quiz_type=quiz_type).last()
+    correct = dashboard.user_correct
+    wrong = dashboard.user_wrong
+    percent = dashboard.percentage
+    left = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,result="left").count()
+    context = {
+        "username": username,
+        "total": total,
+        "attend": attend,
+        "correct": correct,
+        "wrong": wrong,
+        "percent": percent,
+        "left": left
+    }
+    return render(request,"QuizBox/complete_quiz.html",context)

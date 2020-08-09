@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+{% load static %}
+        @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
@@ -6,10 +7,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lemonada&display=swap');
+
 
         *{margin: 0;padding: 0;}
         ::selection,::-moz-selection{background: #f1f2f6;color: #8e44ad;}
-        body{margin: 0;padding: 0;display: border-box;background: #fff;background-blend-mode: multiply;}
+        body{margin: 0;padding: 0;display: border-box;}
 
         .header{background: #24292e;border-bottom: 3px solid #f1f2f6;}
         .brand{margin-right: 92px;}
@@ -34,5 +37,7 @@
         .user_auth .dropdwn-menu  a:hover{color: #565656;font-family: 'Spicy Rice', cursive;}
         .user_auth .dropdwn-menu:after{content: '';display: block;height: 15px;width: 15px;background: #ecf0f1;top: -88px;left: 137px;transform: rotate(45deg);position: relative;z-index: 3;}
 
-        .tab-1{display: flex;justify-content: center;vertical-align: center;}
-        .tab-1 p{color: #fff;font-size: 30px;font-family: 'Spicy Rice',cursive;margin-top: 20%;}
+        .tab-1{}
+        .dashboard{display: flex;justify-content: center;align-items: center;flex-direction: column;}
+        .dashboard h2{font-family: 'Lemonada', cursive;color: #fff;margin-top: 20px;}
+        .dashboard p{color: #fff;font-family: 'Lemonada', cursive;font-size: 25px;font-weight: 500;}

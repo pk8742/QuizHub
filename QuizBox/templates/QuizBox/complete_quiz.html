@@ -6,7 +6,8 @@
 	<title>QuizHub</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://use.fontawesome.com/0f5b686ba4.js"></script>
-	<link rel="stylesheet" href="{% static 'QuizBox/css/index.css' %}">
+	<link rel="stylesheet" href="{% static 'QuizBox/css/complete_quiz.css' %}">
+
 
 </head>
 <body style="background: url('{% static 'QuizBox/images/preview-25208dQL9L4StsQ_0006.jpg' %}');">
@@ -31,32 +32,21 @@
         </button>
         <div class="dropdown-menu drpdwn-menu">
           <a class="dropdown-item active" href="{% url 'CS_Quiz' 1 %}">CS QUIZ</a>
-          <a class="dropdown-item" href="#">------</a>
-          <a class="dropdown-item" href="#">------</a>
+          <a class="dropdown-item" href="">------</a>
+          <a class="dropdown-item" href="">------</a>
         </div>
       </div>
     </div>
     <div class="navbar col-lg-6 col-md-12 col-sm-12 col-12 user_auth">
-			{% if username == "None" %}
-        <ul class="navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="nav-link usr-link" href="{% url 'register_page' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link usr-link" href="{% url 'login_page' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-        </li>
-    	</ul>
-		{% else %}
-			<div class="dropdown">
-			  <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-			    {{username}}
-			  </button>
-			  <div class="dropdown-menu dropdwn-menu">
-			    <h5 class="dropdown-header">{{username}} Account</h5>
-			    <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
-			  </div><!-- end of dropdown-menu -->
-			</div><!-- end of dropdown -->
-		{% endif %}
+		<div class="dropdown">
+		  <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+		    {{username}}
+		  </button>
+		  <div class="dropdown-menu dropdwn-menu">
+		    <h5 class="dropdown-header">{{username}} Account</h5>
+		    <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+		  </div><!-- end of dropdown-menu -->
+		</div><!-- end of dropdown -->
     </div><!-- end of user_auth -->
   </div><!-- end of navbar-collapse -->
   </nav>
@@ -68,7 +58,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-12 tab-1">
-				<p>QuizHub is written in python with using Django framework. It contains quizes based on countries, maths, science.</p>
+
+				<div class="dashboard">
+					<h2>Congratulation pk8742, you have completed this quiz.</h2>
+					<p>Total questions : {{total}}</p>
+					<p>Attend : {{attend}}</p>
+					<p>Correct : {{correct}}</p>
+					<p>Wrong : {{wrong}}</p>
+					<p>Left : {{left}}</p>
+					<p>Accuracy : {{percent}}%</p>
+				</div>
 			</div><!-- end of tab-1 -->
 		</div><!-- end of row -->
 	</div><!-- end of container -->

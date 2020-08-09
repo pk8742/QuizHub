@@ -53,7 +53,7 @@ def register_view(request):
         return render(request,"usr_auth/registerPage.html",context)
 
 def login_view(request):
-    from QuizBox.views import countryQuiz
+    from QuizBox.views import CS_Quiz
     if request.method == 'POST':
         username = request.POST["username"]
         password = request.POST["pass"]
@@ -70,7 +70,7 @@ def login_view(request):
             login(request,user)
             #creating user session
             request.session["username"] = username
-            return redirect('countryQuiz',quiz_id=1)
+            return redirect('CS_Quiz',quiz_id=1)
         else:
             context = {
                 "msg": "Invalid Credentials"
