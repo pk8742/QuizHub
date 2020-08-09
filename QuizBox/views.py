@@ -101,6 +101,16 @@ def nextQuiz(request,quiz_id):
         usr_wrong = 0
         user_correct = 0
         user_wrong = 0
+    
+    # script to avoid reattempt of a right or wrong question (Can be done in mobile phones)
+    qrt = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no).last()
+    if qrt:
+        qrt_ans = qrt.result
+        if qrt_ans == "right" or qrt_ans == "wrong":
+            if not quiz_id < all_question:
+                return redirect('complete_quiz',quiz_type="CS_Quiz")
+            else:
+                return redirect('next',quiz_type="CS_Quiz",quiz_id=quiz_id)
 
     # Script for the left questions reattempt
     check_quiz_table = Quiz_result_table.objects.filter(username=username,quiz_type=quiz_type,q_no=q_no).last()
