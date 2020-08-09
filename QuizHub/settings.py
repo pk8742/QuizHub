@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'QuizHub',
         'USER': 'postgres',
-        'PASSWORD': 'pk8742',
+        'PASSWORD': '******',
         'HOST': 'localhost',
         'PORT': 5432
     }
